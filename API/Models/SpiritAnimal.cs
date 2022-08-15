@@ -1,4 +1,4 @@
-﻿namespace PlaygroundAPI6Cont.Models
+﻿namespace PlaygroundAPI.Models
 {
     public class SpiritAnimal
     {

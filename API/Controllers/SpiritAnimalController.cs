@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PlaygroundAPI6Cont.Models;
+using PlaygroundAPI.Models;
 
-namespace PlaygroundAPI6Cont.Controllers
+namespace PlaygroundAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

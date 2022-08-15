@@ -1,4 +1,4 @@
-﻿using PlaygroundAPI6Cont.Models;
+﻿using PlaygroundAPI.Models;
 
 namespace PlaygroundCLI
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace PlaygroundAPI6Cont.Models
+namespace PlaygroundAPI.Models
 {
     public class SpiritAnimalContext:DbContext
     {

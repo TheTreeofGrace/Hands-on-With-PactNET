@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using PlaygroundAPI6Cont.Models;
+using PlaygroundAPI.Models;
 namespace PlaygroundCLI
 {
     public class Client
@@ -12,7 +12,7 @@ namespace PlaygroundCLI
         public Client()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7029/api/");
+            client.BaseAddress = new Uri("https://localhost:3000/api/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));

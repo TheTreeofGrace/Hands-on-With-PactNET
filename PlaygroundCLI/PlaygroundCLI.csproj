@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\PlaygroundAPI6Cont.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Microsoft.AspNet.WebApi.Client" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API\PlaygroundAPI.csproj" />
   </ItemGroup>
 </Project>

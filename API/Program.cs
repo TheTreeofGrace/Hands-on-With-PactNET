@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PlaygroundAPI6Cont;
-using PlaygroundAPI6Cont.Models;
+using PlaygroundAPI;
+using PlaygroundAPI.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);

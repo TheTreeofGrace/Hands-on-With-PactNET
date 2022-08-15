@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1700.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaygroundWeb", "PlaygroundWeb\PlaygroundWeb.csproj", "{C1E74604-AB58-4EEC-94FA-F377CD80EB6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaygroundAPI6Cont", "API\PlaygroundAPI6Cont.csproj", "{33BDE04F-E8EE-424A-B87E-3FB239524B93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaygroundAPI", "API\PlaygroundAPI.csproj", "{33BDE04F-E8EE-424A-B87E-3FB239524B93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaygroundCLI", "PlaygroundCLI\PlaygroundCLI.csproj", "{C804C18E-BB71-479E-8D87-AA3DCAAA862F}"
 EndProject
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C1E74604-AB58-4EEC-94FA-F377CD80EB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1E74604-AB58-4EEC-94FA-F377CD80EB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1E74604-AB58-4EEC-94FA-F377CD80EB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1E74604-AB58-4EEC-94FA-F377CD80EB6E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33BDE04F-E8EE-424A-B87E-3FB239524B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33BDE04F-E8EE-424A-B87E-3FB239524B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33BDE04F-E8EE-424A-B87E-3FB239524B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
