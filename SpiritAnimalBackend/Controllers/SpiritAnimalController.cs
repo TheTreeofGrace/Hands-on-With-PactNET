@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using SpiritAnimalBackend.Models;
 using SpiritAnimalBackend.Repositories;
 
@@ -37,7 +38,7 @@ namespace SpiritAnimalBackend.Controllers
 
             if (spiritAnimal == null)
             {
-                return NotFound("Requested spirit animal does not exist.");
+                return NotFound();
             }
 
             return Ok(spiritAnimal);

@@ -3,7 +3,7 @@ using SpiritAnimalBackend.Models;
 
 namespace SpiritAnimalBackend.Repositories;
 
-public class SpritAnimalRepository : ISpiritAnimalRepository
+public class SpritAnimalRepository
 {
     private static readonly SpritAnimalRepository Instance = new SpritAnimalRepository();
     private List<SpiritAnimal> _spiritAnimals;
