@@ -15,7 +15,7 @@ public class MockProvider
     {
         var config = new PactConfig
         {
-            PactDir = Path.Join(@"../../../../../", "pact/pacts"),
+            PactDir = Path.Join(@"../../../../", "pact/pacts"),
             DefaultJsonSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()

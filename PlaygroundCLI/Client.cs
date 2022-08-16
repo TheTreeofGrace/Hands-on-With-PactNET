@@ -7,7 +7,7 @@ namespace PlaygroundCLI
     public class Client
     {
         readonly HttpClient _client;
-        public Client()
+        public Client(Uri baseUri)
         {
             // We are not handling SSL certs!
             var handler = new HttpClientHandler() 
@@ -15,7 +15,7 @@ namespace PlaygroundCLI
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
             _client = new HttpClient(handler);
-            _client.BaseAddress = new Uri("https://localhost:3000/api/");
+            _client.BaseAddress = baseUri;
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));

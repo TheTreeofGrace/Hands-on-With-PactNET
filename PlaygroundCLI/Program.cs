@@ -11,7 +11,7 @@ namespace PlaygroundCLI
         }
         static async Task RunAsync()
         {
-            Client client = new();
+            Client client = new(new Uri($"http://localhost:3000"));
 
             var spiritAnimal = new SpiritAnimal
             {
