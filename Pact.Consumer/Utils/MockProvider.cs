@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PactNet;
@@ -27,6 +26,6 @@ public class MockProvider
             },
         };
 
-        MockProviderServer = PactNet.Pact.V3("ApiClient", "ProductService", config).UsingNativeBackend(MockServerPort);
+        MockProviderServer = PactNet.Pact.V3("SpiritAnimalConsumer", "SpiritAnimalProvider", config).UsingNativeBackend(MockServerPort);
     }
 }

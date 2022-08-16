@@ -1,4 +1,4 @@
-﻿using PlaygroundAPI.Models;
+﻿using SpiritAnimalBackend.Models;
 
 namespace PlaygroundCLI
 {

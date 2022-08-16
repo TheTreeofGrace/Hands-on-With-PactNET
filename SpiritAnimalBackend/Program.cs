@@ -1,21 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using PlaygroundAPI;
-using PlaygroundAPI.Models;
-
-
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<SpiritAnimalContext>(opt =>
-    opt.UseInMemoryDatabase("SpiritAnimals"));
-
-
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,9 +17,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//app.UseAuthorization();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-

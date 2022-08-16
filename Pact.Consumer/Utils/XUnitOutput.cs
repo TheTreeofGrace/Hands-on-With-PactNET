@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using PactNet.Infrastructure.Outputters;
 using Xunit.Abstractions;
 
