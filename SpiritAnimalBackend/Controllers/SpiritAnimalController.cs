@@ -24,9 +24,9 @@ namespace SpiritAnimalBackend.Controllers
             var spiritAnimals = _repository.GetSpiritAnimals();
             if (spiritAnimals.Count == 0)
           {
-              return NoContent();
+              return Ok();
           }
-            return spiritAnimals;
+            return Ok(spiritAnimals);
         }
 
         // GET: api/SpiritAnimal/5
@@ -40,7 +40,7 @@ namespace SpiritAnimalBackend.Controllers
                 return NotFound("Requested spirit animal does not exist.");
             }
 
-            return spiritAnimal;
+            return Ok(spiritAnimal);
         }
 
         // PUT: api/SpiritAnimal/5
@@ -59,8 +59,10 @@ namespace SpiritAnimalBackend.Controllers
             {
                 return NotFound("Please use POST request to create spirit animal.");
             }
+            
+            var result = _repository.PutSpiritAnimal(existingAnimal, spiritAnimal);
 
-            return _repository.PutSpiritAnimal(existingAnimal, spiritAnimal);
+            return Ok(result);
         }
 
         // POST: api/SpiritAnimal
@@ -69,6 +71,11 @@ namespace SpiritAnimalBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<SpiritAnimal>> PostSpiritAnimal(SpiritAnimal spiritAnimal)
         {
+            var animalExists = _repository.GetSpiritAnimal(spiritAnimal.Id);
+            if (animalExists != null)
+            {
+                return Conflict("A spirit animal with the id " + animalExists.Id + " already exists!");
+            }
             try
             {
                 _repository.PostSpiritAnimal(spiritAnimal);
@@ -78,7 +85,7 @@ namespace SpiritAnimalBackend.Controllers
                 return BadRequest("Internal Server Error. " + e.Message);
             }
 
-            return CreatedAtAction(nameof(GetSpiritAnimal), new { id = spiritAnimal.Id }, spiritAnimal);
+            return CreatedAtRoute(spiritAnimal.Id, spiritAnimal);
         }
 
         // DELETE: api/SpiritAnimal/5
