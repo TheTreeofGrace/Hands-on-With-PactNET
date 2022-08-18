@@ -7,7 +7,7 @@
       "description": "A request for a spirit animals",
       "providerStates": [
         {
-          "name": "products exist"
+          "name": "a spirit animal exists"
         }
       ],
       "request": {
@@ -59,7 +59,7 @@
       "description": "A request for all spirit animals",
       "providerStates": [
         {
-          "name": "products exist"
+          "name": "spirit animals exist"
         }
       ],
       "request": {

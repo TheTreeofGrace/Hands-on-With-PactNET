@@ -10,12 +10,12 @@ namespace SpiritAnimalBackend.Controllers
     public class SpiritAnimalController : Controller
     {
         private IConfiguration Configuration { get; }
-        private SpritAnimalRepository _repository;
+        private SpiritAnimalRepository _repository;
 
         public SpiritAnimalController(IConfiguration configuration)
         {
             Configuration = configuration;
-            _repository = SpritAnimalRepository.GetInstance();
+            _repository = SpiritAnimalRepository.GetInstance();
         }
 
         // GET: api/SpiritAnimal

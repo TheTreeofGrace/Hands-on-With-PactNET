@@ -3,17 +3,17 @@ using SpiritAnimalBackend.Models;
 
 namespace SpiritAnimalBackend.Repositories;
 
-public class SpritAnimalRepository
+public class SpiritAnimalRepository
 {
-    private static readonly SpritAnimalRepository Instance = new SpritAnimalRepository();
+    private static readonly SpiritAnimalRepository Instance = new SpiritAnimalRepository();
     private List<SpiritAnimal> _spiritAnimals;
 
-    public SpritAnimalRepository()
+    public SpiritAnimalRepository()
     {
         _spiritAnimals = new List<SpiritAnimal>();
     }
 
-    public static SpritAnimalRepository GetInstance()
+    public static SpiritAnimalRepository GetInstance()
     {
         return Instance;
     }
@@ -43,5 +43,10 @@ public class SpritAnimalRepository
     public void DeleteSpiritAnimal(SpiritAnimal animal)
     {
         _spiritAnimals.Remove(animal);
+    }
+
+    public void DeleteAllSpiritAnimals()
+    {
+        _spiritAnimals.Clear();
     }
 }

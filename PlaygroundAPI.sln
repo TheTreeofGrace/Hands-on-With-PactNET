@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pact.Consumer", "Pact.Consu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiritAnimalBackend", "SpiritAnimalBackend\SpiritAnimalBackend.csproj", "{550E6817-0AA6-44B1-AA21-8BA1685F5213}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pact.Provider", "Pact.Provider\Pact.Provider.csproj", "{7DE0070B-813E-4A1E-B8FE-E3976129454A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{550E6817-0AA6-44B1-AA21-8BA1685F5213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{550E6817-0AA6-44B1-AA21-8BA1685F5213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{550E6817-0AA6-44B1-AA21-8BA1685F5213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE0070B-813E-4A1E-B8FE-E3976129454A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE0070B-813E-4A1E-B8FE-E3976129454A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE0070B-813E-4A1E-B8FE-E3976129454A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE0070B-813E-4A1E-B8FE-E3976129454A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

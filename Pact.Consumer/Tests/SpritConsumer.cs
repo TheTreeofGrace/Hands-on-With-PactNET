@@ -29,7 +29,7 @@ public class SpritConsumer : MockProvider
     {
         // Arange
         MockProviderServer.UponReceiving("A request for all spirit animals")
-            .Given("products exist")
+            .Given("spirit animals exist")
             .WithRequest(HttpMethod.Get, "/SpiritAnimal")
             .WillRespond()
             .WithStatus(HttpStatusCode.OK)
@@ -49,7 +49,7 @@ public class SpritConsumer : MockProvider
     {
         // Arange
         MockProviderServer.UponReceiving("A request for a spirit animals")
-            .Given("products exist")
+            .Given("a spirit animal exists")
             .WithRequest(HttpMethod.Get, "/SpiritAnimal/10")
             .WillRespond()
             .WithStatus(HttpStatusCode.OK)
