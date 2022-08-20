@@ -23,13 +23,13 @@ namespace PlaygroundCLI
 
         public async Task<HttpResponseMessage> GetSpiritAnimal(long number)
         {
-            return await _client.GetAsync($"SpiritAnimal/{number}");
+            return await _client.GetAsync($"api/SpiritAnimal/{number}");
         }
 
         public async Task<SpiritAnimal[]> GetSpiritAnimals()
         {
             SpiritAnimal[] spiritAnimal = new SpiritAnimal[]{};
-            HttpResponseMessage httpResponse = await _client.GetAsync("SpiritAnimal");
+            HttpResponseMessage httpResponse = await _client.GetAsync($"api/SpiritAnimal");
             if (httpResponse.IsSuccessStatusCode)
             {
                 spiritAnimal = await httpResponse.Content.ReadAsAsync<SpiritAnimal[]>();
@@ -40,14 +40,14 @@ namespace PlaygroundCLI
         public async Task<Uri?> CreateSpiritAnimal(SpiritAnimal spiritAnimal)
         {
             HttpResponseMessage httpResponse = await _client.PostAsJsonAsync(
-                "SpiritAnimal", spiritAnimal);
+                $"api/SpiritAnimal", spiritAnimal);
             return httpResponse.Headers.Location;
         }
 
         public async Task<SpiritAnimal> UpdateSpiritAnimal(SpiritAnimal spiritAnimal)
         {
             HttpResponseMessage httpResponse = await _client.PutAsJsonAsync(
-                $"SpiritAnimal/{spiritAnimal.Id}",spiritAnimal);
+                $"api/SpiritAnimal/{spiritAnimal.Id}",spiritAnimal);
             spiritAnimal = await httpResponse.Content.ReadAsAsync<SpiritAnimal>();
             return spiritAnimal;
         }
@@ -55,7 +55,7 @@ namespace PlaygroundCLI
         public async Task<HttpStatusCode> DeleteSpiritAnimal(long number)
         {
             HttpResponseMessage httpResponse = await _client.DeleteAsync(
-                $"SpiritAnimal/{number}");
+                $"api/SpiritAnimal/{number}");
             return httpResponse.StatusCode;
         }
     }

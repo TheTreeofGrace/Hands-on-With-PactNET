@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 using SpiritAnimalBackend.Models;
 using SpiritAnimalBackend.Repositories;
 
@@ -48,34 +47,40 @@ namespace SpiritAnimalBackend.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
        
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<SpiritAnimal>> PutSpiritAnimal(long id, SpiritAnimal spiritAnimal)
         {
             if (id != spiritAnimal.Id)
             {
-                return BadRequest("ID and spirit animal id must match");
+                return new BadRequestResult();
             }
 
             var existingAnimal = _repository.GetSpiritAnimal(id);
             if (existingAnimal == null)
             {
-                return NotFound("Please use POST request to create spirit animal.");
+                return new NotFoundResult();
             }
             
             var result = _repository.PutSpiritAnimal(existingAnimal, spiritAnimal);
 
-            return Ok(result);
+            return new OkObjectResult(result);
         }
 
         // POST: api/SpiritAnimal
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
        
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SpiritAnimal))]
         public async Task<ActionResult<SpiritAnimal>> PostSpiritAnimal(SpiritAnimal spiritAnimal)
         {
             var animalExists = _repository.GetSpiritAnimal(spiritAnimal.Id);
             if (animalExists != null)
             {
-                return Conflict("A spirit animal with the id " + animalExists.Id + " already exists!");
+                return new ConflictResult();
             }
             try
             {
@@ -83,25 +88,27 @@ namespace SpiritAnimalBackend.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Internal Server Error. " + e.Message);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            return CreatedAtRoute(spiritAnimal.Id, spiritAnimal);
+            return new CreatedAtRouteResult(spiritAnimal.Id.ToString(), spiritAnimal);
         }
 
         // DELETE: api/SpiritAnimal/5
         
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteSpiritAnimal(long id)
         {
             var spiritAnimal = _repository.GetSpiritAnimal(id);
             if (spiritAnimal == null)
             {
-                return NotFound("Requested spirit animal to remove does not exist.");
+                return new NotFoundResult();
             }
 
             _repository.DeleteSpiritAnimal(spiritAnimal);
-            return NoContent();
+            return new NoContentResult();
         }
         
     }

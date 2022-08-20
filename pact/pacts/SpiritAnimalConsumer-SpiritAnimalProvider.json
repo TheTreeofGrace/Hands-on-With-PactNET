@@ -12,7 +12,7 @@
       ],
       "request": {
         "method": "GET",
-        "path": "/SpiritAnimal/10"
+        "path": "/api/SpiritAnimal/10"
       },
       "response": {
         "body": {
@@ -64,7 +64,7 @@
       ],
       "request": {
         "method": "GET",
-        "path": "/SpiritAnimal"
+        "path": "/api/SpiritAnimal"
       },
       "response": {
         "body": [
