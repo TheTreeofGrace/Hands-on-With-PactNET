@@ -1,8 +1,10 @@
+using SpiritAnimalBackend.Models;
+
 namespace Pact.Provider.Utils;
 
 public class SpiritAnimalsMock
 {
-    public static readonly object Panda = new {Id = 10, Colour = "Black and White", Name = "Panda"};
-    public static readonly object Unicorn = new {Id = 1, Name = "Unicorn", Colour = "White"};
-    public static readonly object Dog = new {Id = 2, Name = "Dog", Colour = "Brown"};
+    public static readonly SpiritAnimal Panda = new (10, "Black and White", "Panda");
+    public static readonly SpiritAnimal Unicorn = new (1, "Unicorn", "White");
+    public static readonly SpiritAnimal Dog = new (2, "Dog", "Brown");
 }

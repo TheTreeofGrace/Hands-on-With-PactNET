@@ -16,9 +16,9 @@
       },
       "response": {
         "body": {
-          "colour": "CREDIT_CARD",
+          "colour": "Red",
           "id": 10,
-          "name": "GEM Visa"
+          "name": "Panda"
         },
         "headers": {
           "Content-Type": "application/json; charset=utf-8"
@@ -69,9 +69,9 @@
       "response": {
         "body": [
           {
-            "colour": "CREDIT_CARD",
+            "colour": "Red",
             "id": 10,
-            "name": "GEM Visa"
+            "name": "Panda"
           }
         ],
         "headers": {

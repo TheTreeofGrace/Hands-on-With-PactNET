@@ -13,19 +13,9 @@ namespace PlaygroundCLI
         {
             Client client = new(new Uri($"http://localhost:3000"));
 
-            var spiritAnimal = new SpiritAnimal
-            {
-                Id = 0,
-                Name = "Panda",
-                Colour = "White"
-            };
+            var spiritAnimal = new SpiritAnimal(0, "Panda", "White");
             
-            var putSpiritAnimal = new SpiritAnimal
-            {
-                Id = 0,
-                Name = "Panda",
-                Colour = "Colourful"
-            };
+            var putSpiritAnimal = new SpiritAnimal(0, "Panda", "Colourful");
 
             var uri = await client.CreateSpiritAnimal(spiritAnimal);
             Console.WriteLine("API URL: " + uri);

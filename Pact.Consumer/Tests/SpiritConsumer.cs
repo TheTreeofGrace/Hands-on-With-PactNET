@@ -6,19 +6,19 @@ using Xunit.Abstractions;
 
 namespace Pact.Consumer;
 
-public class SpritConsumer : MockProvider
+public class SpiritConsumer : MockProvider
 {
     private readonly Client _client;
     private const int Port = 1234;
     private readonly MinMaxTypeMatcher _spiritAnimals;
     private readonly object _spiritAnimal;
     
-    public SpritConsumer(ITestOutputHelper output) : base(output)
+    public SpiritConsumer(ITestOutputHelper output) : base(output)
     {
         _spiritAnimal = new {
             Id = new TypeMatcher(10),
-            Colour = new TypeMatcher("CREDIT_CARD"),
-            Name = new TypeMatcher("GEM Visa"),
+            Colour = new TypeMatcher("Red"),
+            Name = new TypeMatcher("Panda"),
         };
         _spiritAnimals = new MinMaxTypeMatcher( _spiritAnimal, 1, 2);
         _client = new Client(new Uri($"http://localhost:{Port}"));
@@ -60,7 +60,7 @@ public class SpritConsumer : MockProvider
         await MockProviderServer.VerifyAsync(async ctx =>
         {
             var response = await _client.GetSpiritAnimal(10);
-            Assert.Equal(response.StatusCode, HttpStatusCode.OK);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         });
     }
 }

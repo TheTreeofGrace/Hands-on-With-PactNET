@@ -1,14 +1,13 @@
-using SpiritAnimalBackend.Controllers;
 using SpiritAnimalBackend.Models;
 
 namespace SpiritAnimalBackend.Repositories;
 
 public class SpiritAnimalRepository
 {
-    private static readonly SpiritAnimalRepository Instance = new SpiritAnimalRepository();
+    private static readonly SpiritAnimalRepository Instance = new ();
     private List<SpiritAnimal> _spiritAnimals;
 
-    public SpiritAnimalRepository()
+    private SpiritAnimalRepository()
     {
         _spiritAnimals = new List<SpiritAnimal>();
     }
@@ -37,7 +36,15 @@ public class SpiritAnimalRepository
 
     public void PostSpiritAnimal(SpiritAnimal animal)
     {
-        _spiritAnimals.Add(animal);
+        try
+        {
+            _spiritAnimals.Add(animal);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Issue with adding a spirit animal: " + animal);
+            Console.WriteLine(e.Message);
+        }
     }
 
     public void DeleteSpiritAnimal(SpiritAnimal animal)

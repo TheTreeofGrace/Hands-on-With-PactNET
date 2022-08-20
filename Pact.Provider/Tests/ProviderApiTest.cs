@@ -15,7 +15,7 @@ public class ProviderApiTest
 
         public ProviderApiTest(ITestOutputHelper output)
         {
-            _providerUri = "http://localhost:3000";
+            _providerUri = "http://localhost:4444";
             _config = new PactVerifierConfig
             {
                 Outputters = new List<IOutput>

@@ -13,6 +13,9 @@ public class ProviderStateMiddleware
         private readonly RequestDelegate _next;
         private readonly SpiritAnimalRepository _repository;
         private readonly IDictionary<string, Action> _providerStates;
+        private readonly SpiritAnimal _unicorn = SpiritAnimalsMock.Unicorn;
+        private readonly SpiritAnimal _dog = SpiritAnimalsMock.Dog;
+        private readonly SpiritAnimal _panda = SpiritAnimalsMock.Panda;
 
         public ProviderStateMiddleware(RequestDelegate next)
         {
@@ -21,7 +24,7 @@ public class ProviderStateMiddleware
             _providerStates = new Dictionary<string, Action>
             {
                 { "spirit animals exist", SpiritAnimalsExists},
-                { "a spirit animal exist", SpiritAnimalExists }
+                { "a spirit animal exists", SpiritAnimalExists }
             };
         }
 
@@ -33,13 +36,14 @@ public class ProviderStateMiddleware
         private void SpiritAnimalsExists()
         {
             CleanUp();
-            _repository.PostSpiritAnimal((SpiritAnimal)SpiritAnimalsMock.Unicorn);
+            _repository.PostSpiritAnimal(_unicorn);
+            _repository.PostSpiritAnimal(_dog);
         }
 
         private void SpiritAnimalExists()
         {
             CleanUp();
-            _repository.PostSpiritAnimal((SpiritAnimal)SpiritAnimalsMock.Panda);
+            _repository.PostSpiritAnimal(_panda);
         }
 
         public async Task Invoke(HttpContext context)
@@ -47,7 +51,7 @@ public class ProviderStateMiddleware
             if (context.Request.Path.StartsWithSegments("/provider-states"))
             {
                 await HandleProviderStatesRequest(context);
-                await context.Response.WriteAsync(String.Empty);
+                await context.Response.WriteAsync(string.Empty);
             }
             else
             {
