@@ -4,8 +4,9 @@ using SpiritAnimalBackend.Repositories;
 
 namespace SpiritAnimalBackend.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
+    // [Route("[controller]")]
+    // [ApiController]
+    [Route("SpiritAnimal")]
     public class SpiritAnimalController : Controller
     {
         private IConfiguration Configuration { get; }
@@ -51,7 +52,7 @@ namespace SpiritAnimalBackend.Controllers
         // PUT: api/SpiritAnimal/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
        
-        [HttpPut("{id}")]
+        [HttpPut("{long id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,7 +76,6 @@ namespace SpiritAnimalBackend.Controllers
 
         // POST: api/SpiritAnimal
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-       
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
