@@ -1,23 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using PlaygroundAPI;
-using PlaygroundAPI.Models;
-
+var AllowSpecificOrigins = "AllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowSpecificOrigins,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-builder.Services.AddDbContext<SpiritAnimalContext>(opt =>
-    opt.UseInMemoryDatabase("SpiritAnimals"));
-
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -30,9 +28,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//app.UseAuthorization();
 
+app.UseCors(AllowSpecificOrigins);
 app.MapControllers();
 
 app.Run();
-

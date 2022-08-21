@@ -1,4 +1,4 @@
-﻿using PlaygroundAPI.Models;
+﻿using SpiritAnimalBackend.Models;
 
 namespace PlaygroundCLI
 {
@@ -6,56 +6,47 @@ namespace PlaygroundCLI
     {
         static void Main()
         {
-            Console.WriteLine("Starting");
-
-            Console.WriteLine("Running");
+            Console.WriteLine("Starting DevOps Playground Spirit Animal API");
             RunAsync().GetAwaiter().GetResult();
         }
         static async Task RunAsync()
         {
+            Client client = new(new Uri($"http://localhost:3000"));
+
+            var spiritAnimal = new SpiritAnimal(0, "Panda", "White");
             
-            Client client = new();
-            Console.WriteLine("loop");
+            var putSpiritAnimal = new SpiritAnimal(0, "Panda", "Colourful");
+
+            var uri = await client.CreateSpiritAnimal(spiritAnimal);
+            Console.WriteLine("API URL: " + uri);
+                
+            var getResult = await client.GetSpiritAnimal(0);
+            Console.WriteLine("Spirit Animal at 1 is: " + getResult);
             
-                SpiritAnimal spiritAnimal = new SpiritAnimal
-                {
-                    Name = "Panda",
-                    Colour = "White"
+            var arr = await client.GetSpiritAnimals();
+            // Console.Write("All spirit animals: ");
+            // foreach (var animal in arr.Content.)
+            // {
+            //     Console.Write(animal + ", ");
+            // }
+            Console.WriteLine();
 
-                };
-                SpiritAnimal upspiritAnimal = new SpiritAnimal
-                {
-                    Id = 1,
-                    Name = "Panda",
-                    Colour = "Colourful"
+            var updated = await client.UpdateSpiritAnimal(putSpiritAnimal);
+            Console.WriteLine("Updated Spirit Animal: " + updated);
 
-                };
+            var arr2 = await client.GetSpiritAnimals();
+            Console.Write("All spirit animals: ");
+            // foreach (var animal in arr2)
+            // {
+            //     Console.Write(animal + ", ");
+            // }
+            // Console.WriteLine();
 
-                Uri uri = await client.CreateSpiritAnimal(spiritAnimal);
-                Console.WriteLine(uri);
-
-
-                SpiritAnimal SA = await client.GetSpiritAnimal(1);
-                Console.WriteLine(SA);
-                SpiritAnimal[] arr = await client.GetSpiritAnimals();
-                Console.WriteLine("All");
-                foreach (var animal in arr)
-                {
-                    Console.WriteLine(animal);
-                }
-
-                SpiritAnimal updated = await client.UpdateSpiritAnimal(upspiritAnimal);
-                Console.WriteLine(updated);
-
+            var delete = await client.DeleteSpiritAnimal(spiritAnimal.Id);
+            Console.WriteLine("Deleted Response: " + delete);
+            
             arr = await client.GetSpiritAnimals();
-            Console.WriteLine("All");
-            foreach (var animal in arr)
-            {
-                Console.WriteLine(animal);
-            }
-
-
+            Console.WriteLine("All spirit animal are now: " + arr);
         }
-
     }
 }
