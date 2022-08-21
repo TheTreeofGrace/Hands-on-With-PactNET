@@ -4,7 +4,7 @@ using SpiritAnimalBackend.Repositories;
 
 namespace SpiritAnimalBackend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SpiritAnimalController : Controller
     {
@@ -19,28 +19,33 @@ namespace SpiritAnimalBackend.Controllers
 
         // GET: api/SpiritAnimal
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SpiritAnimal>>> GetSpiritAnimals()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<SpiritAnimal>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetSpiritAnimals()
         {
             var spiritAnimals = _repository.GetSpiritAnimals();
             if (spiritAnimals.Count == 0)
           {
-              return Ok();
+              return new OkResult();
           }
-            return Ok(spiritAnimals);
+            return new OkObjectResult(spiritAnimals);
         }
 
         // GET: api/SpiritAnimal/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SpiritAnimal>> GetSpiritAnimal(long id)
+        [HttpGet("{long id}")]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
+        public IActionResult GetSpiritAnimal(long id)
         {
             var spiritAnimal = _repository.GetSpiritAnimal(id);
 
             if (spiritAnimal == null)
             {
-                return NotFound();
+                return new NotFoundResult();
             }
 
-            return Ok(spiritAnimal);
+            return new OkObjectResult(spiritAnimal);;
         }
 
         // PUT: api/SpiritAnimal/5
@@ -50,7 +55,7 @@ namespace SpiritAnimalBackend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<SpiritAnimal>> PutSpiritAnimal(long id, SpiritAnimal spiritAnimal)
+        public IActionResult PutSpiritAnimal(long id, SpiritAnimal spiritAnimal)
         {
             if (id != spiritAnimal.Id)
             {
@@ -75,7 +80,7 @@ namespace SpiritAnimalBackend.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SpiritAnimal))]
-        public async Task<ActionResult<SpiritAnimal>> PostSpiritAnimal(SpiritAnimal spiritAnimal)
+        public IActionResult PostSpiritAnimal(SpiritAnimal spiritAnimal)
         {
             var animalExists = _repository.GetSpiritAnimal(spiritAnimal.Id);
             if (animalExists != null)
@@ -99,7 +104,7 @@ namespace SpiritAnimalBackend.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteSpiritAnimal(long id)
+        public IActionResult DeleteSpiritAnimal(long id)
         {
             var spiritAnimal = _repository.GetSpiritAnimal(id);
             if (spiritAnimal == null)

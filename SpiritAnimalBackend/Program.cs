@@ -21,5 +21,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=api}/{action=SpiritAnimal}/{id?}");
 
 app.Run();

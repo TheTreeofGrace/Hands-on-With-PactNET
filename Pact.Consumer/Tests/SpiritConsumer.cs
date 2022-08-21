@@ -30,7 +30,7 @@ public class SpiritConsumer : MockProvider
         // Arange
         MockProviderServer.UponReceiving("A request for all spirit animals")
             .Given("spirit animals exist")
-            .WithRequest(HttpMethod.Get, "/api/SpiritAnimal")
+            .WithRequest(HttpMethod.Get, "/SpiritAnimal")
             .WillRespond()
             .WithStatus(HttpStatusCode.OK)
             .WithHeader("Content-Type", "application/json; charset=utf-8")
@@ -50,7 +50,7 @@ public class SpiritConsumer : MockProvider
         // Arange
         MockProviderServer.UponReceiving("A request for a spirit animals")
             .Given("a spirit animal exists")
-            .WithRequest(HttpMethod.Get, "/api/SpiritAnimal/10")
+            .WithRequest(HttpMethod.Get, "/SpiritAnimal/10")
             .WillRespond()
             .WithStatus(HttpStatusCode.OK)
             .WithHeader("Content-Type", "application/json; charset=utf-8")

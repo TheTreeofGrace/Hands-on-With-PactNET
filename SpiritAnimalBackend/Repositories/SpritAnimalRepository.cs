@@ -4,7 +4,7 @@ namespace SpiritAnimalBackend.Repositories;
 
 public class SpiritAnimalRepository
 {
-    private static readonly SpiritAnimalRepository Instance = new ();
+    private static readonly SpiritAnimalRepository Instance = new SpiritAnimalRepository();
     private List<SpiritAnimal> _spiritAnimals;
 
     private SpiritAnimalRepository()

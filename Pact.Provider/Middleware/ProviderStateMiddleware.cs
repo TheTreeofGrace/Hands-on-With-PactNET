@@ -37,7 +37,7 @@ public class ProviderStateMiddleware
         {
             CleanUp();
             _repository.PostSpiritAnimal(_unicorn);
-            _repository.PostSpiritAnimal(_dog);
+            // _repository.PostSpiritAnimal(_dog);
         }
 
         private void SpiritAnimalExists()
