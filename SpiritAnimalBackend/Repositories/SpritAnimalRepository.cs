@@ -10,6 +10,7 @@ public class SpiritAnimalRepository
     private SpiritAnimalRepository()
     {
         _spiritAnimals = new List<SpiritAnimal>();
+        // _spiritAnimals.Add(new SpiritAnimal(10, "Panda", "Black and White"));
     }
 
     public static SpiritAnimalRepository GetInstance()
