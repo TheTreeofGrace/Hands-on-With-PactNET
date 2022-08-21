@@ -10,12 +10,14 @@ namespace Pact.Provider.Tests;
 public class ProviderApiTest
 {
     private readonly string _providerUri;
+    private readonly string _brokerUri;
     private readonly PactVerifierConfig _config;
     private readonly IWebHost _webHost;
 
         public ProviderApiTest(ITestOutputHelper output)
         {
             _providerUri = "http://localhost:3000";
+            _brokerUri = "http://localhost:9292";
             _config = new PactVerifierConfig
             {
                 Outputters = new List<IOutput>
@@ -38,7 +40,12 @@ public class ProviderApiTest
             // Act / Assert
             pactVerifier
                 .ServiceProvider("SpiritAnimalProvider", new Uri(_providerUri))
-                .WithFileSource(new FileInfo(pactPath))
+                .WithPactBrokerSource(new Uri(_brokerUri),options =>
+                {
+                    options.ConsumerVersionSelectors(new ConsumerVersionSelector { Latest = true })
+                        .PublishResults(providerVersion:"1");
+                })
+                // .WithFileSource(new FileInfo(pactPath))
                 .WithProviderStateUrl(new Uri($"{_providerUri}/provider-states"))
                 .Verify();
         }
