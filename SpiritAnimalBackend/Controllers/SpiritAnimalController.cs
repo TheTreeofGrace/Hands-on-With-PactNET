@@ -19,6 +19,7 @@ namespace SpiritAnimalBackend.Controllers
 
         // GET: api/SpiritAnimal
         [HttpGet]
+        [Route("/SpiritAnimal")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<SpiritAnimal>))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetSpiritAnimals()
@@ -28,11 +29,12 @@ namespace SpiritAnimalBackend.Controllers
           {
               return new OkResult();
           }
-            return new OkObjectResult(spiritAnimals);
+            return new JsonResult(spiritAnimals);
         }
 
         // GET: api/SpiritAnimal/5
-        [HttpGet("{long id}")]
+        [HttpGet]
+        [Route("/SpiritAnimal/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
         public IActionResult GetSpiritAnimal(long id)
@@ -44,12 +46,12 @@ namespace SpiritAnimalBackend.Controllers
                 return new NotFoundResult();
             }
 
-            return new OkObjectResult(spiritAnimal);;
+            return new JsonResult(spiritAnimal);;
         }
 
         // PUT: api/SpiritAnimal/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{long id}")]
+        [HttpPut("{id?}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -97,7 +99,7 @@ namespace SpiritAnimalBackend.Controllers
         }
 
         // DELETE: api/SpiritAnimal/5
-        [HttpDelete("{long id}")]
+        [HttpDelete("{id?}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteSpiritAnimal(long id)
