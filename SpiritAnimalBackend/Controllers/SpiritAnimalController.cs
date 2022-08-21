@@ -37,10 +37,9 @@ namespace SpiritAnimalBackend.Controllers
         [Route("/SpiritAnimal/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
-        public IActionResult GetSpiritAnimal(long id)
+        public IActionResult GetSpiritAnimal(int id)
         {
             var spiritAnimal = _repository.GetSpiritAnimal(id);
-
             if (spiritAnimal == null)
             {
                 return new NotFoundResult();
@@ -55,7 +54,7 @@ namespace SpiritAnimalBackend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SpiritAnimal))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult PutSpiritAnimal(long id, SpiritAnimal spiritAnimal)
+        public IActionResult PutSpiritAnimal(int id, SpiritAnimal spiritAnimal)
         {
             if (id != spiritAnimal.Id)
             {
@@ -102,7 +101,7 @@ namespace SpiritAnimalBackend.Controllers
         [HttpDelete("{id?}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public IActionResult DeleteSpiritAnimal(long id)
+        public IActionResult DeleteSpiritAnimal(int id)
         {
             var spiritAnimal = _repository.GetSpiritAnimal(id);
             if (spiritAnimal == null)

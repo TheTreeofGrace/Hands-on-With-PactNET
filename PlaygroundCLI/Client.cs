@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Http.Headers;
 using SpiritAnimalBackend.Models;
 
 namespace PlaygroundCLI
@@ -9,16 +8,8 @@ namespace PlaygroundCLI
         readonly HttpClient _client;
         public Client(Uri baseUri)
         {
-            // We are not handling SSL certs!
-            var handler = new HttpClientHandler() 
-            { 
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            };
-            _client = new HttpClient(handler);
+            _client = new HttpClient();
             _client.BaseAddress = baseUri;
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<HttpResponseMessage> GetSpiritAnimal(long number)
@@ -26,15 +17,11 @@ namespace PlaygroundCLI
             return await _client.GetAsync($"SpiritAnimal/{number}");
         }
 
-        public async Task<SpiritAnimal[]> GetSpiritAnimals()
+        public async Task<HttpResponseMessage> GetSpiritAnimals()
         {
-            SpiritAnimal[] spiritAnimal = new SpiritAnimal[]{};
-            HttpResponseMessage httpResponse = await _client.GetAsync($"SpiritAnimal");
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                spiritAnimal = await httpResponse.Content.ReadAsAsync<SpiritAnimal[]>();
-            }
-            return spiritAnimal;
+            // var spiritAnimal = new List<SpiritAnimal>(){};
+            var httpResponse = await _client.GetAsync($"SpiritAnimal");
+            return httpResponse;
         }
 
         public async Task<Uri?> CreateSpiritAnimal(SpiritAnimal spiritAnimal)

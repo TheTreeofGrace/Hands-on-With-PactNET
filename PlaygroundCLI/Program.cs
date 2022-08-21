@@ -24,11 +24,11 @@ namespace PlaygroundCLI
             Console.WriteLine("Spirit Animal at 1 is: " + getResult);
             
             var arr = await client.GetSpiritAnimals();
-            Console.Write("All spirit animals: ");
-            foreach (var animal in arr)
-            {
-                Console.Write(animal + ", ");
-            }
+            // Console.Write("All spirit animals: ");
+            // foreach (var animal in arr.Content.)
+            // {
+            //     Console.Write(animal + ", ");
+            // }
             Console.WriteLine();
 
             var updated = await client.UpdateSpiritAnimal(putSpiritAnimal);
@@ -36,11 +36,11 @@ namespace PlaygroundCLI
 
             var arr2 = await client.GetSpiritAnimals();
             Console.Write("All spirit animals: ");
-            foreach (var animal in arr2)
-            {
-                Console.Write(animal + ", ");
-            }
-            Console.WriteLine();
+            // foreach (var animal in arr2)
+            // {
+            //     Console.Write(animal + ", ");
+            // }
+            // Console.WriteLine();
 
             var delete = await client.DeleteSpiritAnimal(spiritAnimal.Id);
             Console.WriteLine("Deleted Response: " + delete);

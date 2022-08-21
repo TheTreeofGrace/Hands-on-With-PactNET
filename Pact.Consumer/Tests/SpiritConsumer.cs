@@ -40,7 +40,7 @@ public class SpiritConsumer : MockProvider
         await MockProviderServer.VerifyAsync(async ctx =>
         {
             var response = await _client.GetSpiritAnimals();
-            Assert.True(response.Length > 0);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         });
     }
 

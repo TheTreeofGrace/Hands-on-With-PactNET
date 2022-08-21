@@ -51,7 +51,7 @@ public class ProviderStateMiddleware
             if (context.Request.Path.StartsWithSegments("/provider-states"))
             {
                 await HandleProviderStatesRequest(context);
-                await context.Response.WriteAsync(string.Empty);
+                await context.Response.WriteAsync(String.Empty);
             }
             else
             {

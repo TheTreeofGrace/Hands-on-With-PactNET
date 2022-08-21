@@ -23,7 +23,7 @@ public class SpiritAnimalRepository
         return _spiritAnimals;
     }
 
-    public SpiritAnimal? GetSpiritAnimal(long id)
+    public SpiritAnimal? GetSpiritAnimal(int id)
     {
         return _spiritAnimals.Find(spiritAnimal => spiritAnimal.Id == id);
     }
