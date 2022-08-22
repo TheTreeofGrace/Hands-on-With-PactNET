@@ -4,7 +4,7 @@ using PactNet.Matchers;
 using PlaygroundCLI;
 using Xunit.Abstractions;
 
-namespace Pact.Consumer;
+namespace Pact.Consumer.Tests;
 
 public class SpiritConsumer : MockProvider
 {

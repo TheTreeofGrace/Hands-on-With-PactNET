@@ -11,6 +11,7 @@ public class ProviderApiTest
 {
     private readonly string _providerUri;
     private readonly string _brokerUri;
+    private readonly string _pactPath;
     private readonly PactVerifierConfig _config;
     private readonly IWebHost _webHost;
 
@@ -18,6 +19,7 @@ public class ProviderApiTest
         {
             _providerUri = "http://localhost:3000";
             _brokerUri = "http://localhost:9292";
+            _pactPath = Path.Join(@"../../../../", @"pact/pacts/SpiritAnimalConsumer-SpiritAnimalProvider.json");
             _config = new PactVerifierConfig
             {
                 Outputters = new List<IOutput>
@@ -33,8 +35,6 @@ public class ProviderApiTest
         public void EnsureProviderApiHonoursPactWithConsumer()
         {
             // Arrange
-            var pactPath = Path.Join(@"../../../../", @"pact/pacts/SpiritAnimalConsumer-SpiritAnimalProvider.json");
-
             IPactVerifier pactVerifier = new PactVerifier(_config);
 
             // Act / Assert

@@ -26,7 +26,7 @@ cd ..
 cd PactBroker
 docker-compose up -d
 ```
--> Pact Broker UI url: http://localhost:80 
+-> Pact Broker UI url: http://localhost 
 
 ## Publishing the pacts to the broker
 
@@ -59,7 +59,7 @@ cd Pact.Provider
 dotnet test
 ```
 
-Check the Pact Broker: `http://localhost:80` and notice we know have the Last Verified column has been updated and showing green to show success. :tada:
+Check the Pact Broker: `http://localhost` and notice we know have the Last Verified column has been updated and showing green to show success. :tada:
 
 We can further check the verification by clicking through back to the pact file. In the top right you will notice a verified web badge. 
 
