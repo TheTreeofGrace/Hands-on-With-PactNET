@@ -262,7 +262,7 @@ There are some mock spirit animals already created for you that can be accessed 
 An example of what the finished functions could look like. Feel free to change the animals for `SpiritAnimalsExists()` but only a maxium of two is allowed based on the specification of the consumer tests.
 
 ```
-private void SpiritAnimalsExists()
+        private void SpiritAnimalsExists()
         {
             CleanUp();
             _repository.PostSpiritAnimal(SpiritAnimalsMock.Unicorn);

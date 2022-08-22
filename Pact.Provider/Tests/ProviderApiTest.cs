@@ -40,11 +40,7 @@ public class ProviderApiTest
             // Act / Assert
             pactVerifier
                 .ServiceProvider("SpiritAnimalProvider", new Uri(_providerUri))
-                .WithPactBrokerSource(new Uri(_brokerUri),options =>
-                {
-                    options.ConsumerVersionSelectors(new ConsumerVersionSelector { Latest = true })
-                        .PublishResults(providerVersion:"1");
-                })
+                .WithFileSource(new FileInfo(_pactPath))
                 .WithProviderStateUrl(new Uri($"{_providerUri}/provider-states"))
                 .Verify();
         }
