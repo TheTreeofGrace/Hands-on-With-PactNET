@@ -27,40 +27,12 @@ public class SpiritConsumerTest : MockProvider
     [Fact]
     public async void GetAllSpiritAnimals()
     {
-        // Arange
-        MockProviderServer.UponReceiving("A request for all spirit animals")
-            .Given("spirit animals exist")
-            .WithRequest(HttpMethod.Get, "/SpiritAnimal")
-            .WillRespond()
-            .WithStatus(HttpStatusCode.OK)
-            .WithHeader("Content-Type", "application/json; charset=utf-8")
-            .WithJsonBody(_spiritAnimals);
-
-        // Act / Assert
-        await MockProviderServer.VerifyAsync(async ctx =>
-        {
-            var response = await _client.GetSpiritAnimals();
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        });
+        
     }
 
     [Fact]
     public async void GetSpiritAnimal()
     {
-        // Arange
-        MockProviderServer.UponReceiving("A request for a spirit animals")
-            .Given("a spirit animal exists")
-            .WithRequest(HttpMethod.Get, "/SpiritAnimal/10")
-            .WillRespond()
-            .WithStatus(HttpStatusCode.OK)
-            .WithHeader("Content-Type", "application/json; charset=utf-8")
-            .WithJsonBody(_spiritAnimal);
-
-        // Act / Assert
-        await MockProviderServer.VerifyAsync(async ctx =>
-        {
-            var response = await _client.GetSpiritAnimal(10);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        });
+        
     }
 }

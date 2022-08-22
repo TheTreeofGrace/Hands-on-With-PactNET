@@ -32,7 +32,10 @@ The playground uses C# .NET 6 with version 4 of pact. Although no existing knowl
 - Veriable
 - Class
 
-Before getting started, if using our infrastructure be sure to get your instance details. Open up this repo in your IDE to be able to look through the files.
+Before getting started, if using our infrastructure be sure to get your instance details and have the following urls open:
+
+- > terminal: http://<YOUR-PANDA>.devopsplayground.org:8080/wetty
+- > VS Code: http://<YOUR-PANDA>.devopsplayground.org:8000/?folder=/home/coder
 
 ### Good commands to know:
 - `cd <dirName>` to move into a directory
@@ -63,7 +66,7 @@ You should then get output in the terminal similar to the following:
 
 ![](./Images/backend-api-running.png)
 
-Now open the swagger url in your browser: http://localhost:3000/swagger
+Now open the swagger url in your browser: http://<YOUR-PANDA>.devopsplayground.org:3000/swagger
 
 ![](./Images/swagger.png)
 
@@ -396,7 +399,7 @@ cd PactBroker
 docker-compose up -d
 ```
 
-Check the pact broker is running: http://localhost you may notice that there is a default example pact file already there. Feel free to delete this pact file as we will not be using it.
+Check the pact broker is running: http://<YOUR-PANDA>.devopsplayground.org you may notice that there is a default example pact file already there. Feel free to delete this pact file as we will not be using it.
 
 ![](./Images/empty-pact-broker.png)
 
@@ -404,7 +407,7 @@ Check the pact broker is running: http://localhost you may notice that there is 
 Now we have our pact broker up and running we will be able to publish the pact files created by the consumer tests. Run the following commands in your terminal:
 ```
 cd ..
-pact-broker publish pact/pacts/ --consumer-app-version 1 --broker-base-url http://localhost:9292
+pact-broker publish pact/pacts/ --consumer-app-version 1 --broker-base-url http://<YOUR-PANDA>.devopsplayground.org:9292
 ```
 
 You should get something like the below output: 
@@ -412,7 +415,7 @@ You should get something like the below output:
 ![](./Images/pact-file-in-broker.png)
 
 Now if we go to the Pact Broker we can see it has our pact file.
-- > http://localhost:80
+- > http://<YOUR-PANDA>.devopsplayground.org
 ## Verifying Provider Tests
 
 Now that we have our pact files published to the broker we will need to change our Provider tests in order to use this. 
@@ -441,7 +444,7 @@ cd Pact.Provider
 dotnet test
 ```
 
-Check the Pact Broker: `http://localhost` and notice we know have the Last Verified column has been updated and showing green to show success. :tada:
+Check the Pact Broker: `http://<YOUR-PANDA>.devopsplayground.org:80` and notice we know have the Last Verified column has been updated and showing green to show success. :tada:
 
 We can further check the verification by clicking through back to the pact file. In the top right you will notice a verified web badge. 
 
