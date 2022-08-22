@@ -13,9 +13,6 @@ public class ProviderStateMiddleware
         private readonly RequestDelegate _next;
         private readonly SpiritAnimalRepository _repository;
         private readonly IDictionary<string, Action> _providerStates;
-        private readonly SpiritAnimal _unicorn = SpiritAnimalsMock.Unicorn;
-        private readonly SpiritAnimal _dog = SpiritAnimalsMock.Dog;
-        private readonly SpiritAnimal _panda = SpiritAnimalsMock.Panda;
 
         public ProviderStateMiddleware(RequestDelegate next)
         {
@@ -36,14 +33,14 @@ public class ProviderStateMiddleware
         private void SpiritAnimalsExists()
         {
             CleanUp();
-            _repository.PostSpiritAnimal(new SpiritAnimal(1, "Unicorn", "White"));
-            // _repository.PostSpiritAnimal(_dog);
+            _repository.PostSpiritAnimal(SpiritAnimalsMock.Unicorn);
+            _repository.PostSpiritAnimal(SpiritAnimalsMock.Dog);
         }
 
         private void SpiritAnimalExists()
         {
             CleanUp();
-            _repository.PostSpiritAnimal(new SpiritAnimal(10, "Panda", "Black and White"));
+            _repository.PostSpiritAnimal(SpiritAnimalsMock.Panda);
         }
 
         public async Task Invoke(HttpContext context)
@@ -51,7 +48,7 @@ public class ProviderStateMiddleware
             if (context.Request.Path.StartsWithSegments("/provider-states"))
             {
                 await HandleProviderStatesRequest(context);
-                await context.Response.WriteAsync(String.Empty);
+                await context.Response.WriteAsync(string.Empty);
             }
             else
             {
@@ -66,7 +63,7 @@ public class ProviderStateMiddleware
             if (context.Request.Method.ToUpper() == HttpMethod.Post.ToString().ToUpper() &&
                 context.Request.Body != null)
             {
-                string jsonRequestBody = String.Empty;
+                string jsonRequestBody = string.Empty;
                 using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8))
                 {
                     jsonRequestBody = await reader.ReadToEndAsync();
@@ -75,7 +72,7 @@ public class ProviderStateMiddleware
                 var providerState = JsonConvert.DeserializeObject<ProviderState>(jsonRequestBody);
 
                 //A null or empty provider state key must be handled
-                if (providerState != null && !String.IsNullOrEmpty(providerState.State))
+                if (providerState != null && !string.IsNullOrEmpty(providerState.State))
                 {
                     _providerStates[providerState.State].Invoke();
                 }
