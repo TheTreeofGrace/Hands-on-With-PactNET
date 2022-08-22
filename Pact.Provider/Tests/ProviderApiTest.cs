@@ -45,7 +45,6 @@ public class ProviderApiTest
                     options.ConsumerVersionSelectors(new ConsumerVersionSelector { Latest = true })
                         .PublishResults(providerVersion:"1");
                 })
-                // .WithFileSource(new FileInfo(pactPath))
                 .WithProviderStateUrl(new Uri($"{_providerUri}/provider-states"))
                 .Verify();
         }
