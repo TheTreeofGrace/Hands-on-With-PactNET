@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "SpiritAnimal",
-      "applicationUrl": "http://localhost:3000",
+      "applicationUrl": "http://<YOUR-PANDA>:3000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
