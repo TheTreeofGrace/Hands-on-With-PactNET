@@ -8,7 +8,7 @@ namespace Pact.Consumer.Utils;
 
 public class MockProvider
 {
-    private const int MockServerPort = 1234;
+    private const int MockServerPort = 3001;
     protected readonly IPactBuilderV3 MockProviderServer;
 
     protected MockProvider(ITestOutputHelper output)

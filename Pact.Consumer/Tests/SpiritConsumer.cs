@@ -9,7 +9,7 @@ namespace Pact.Consumer.Tests;
 public class SpiritConsumer : MockProvider
 {
     private readonly Client _client;
-    private const int Port = 1234;
+    private const int Port = 3001;
     private readonly MinMaxTypeMatcher _spiritAnimals;
     private readonly object _spiritAnimal;
     
