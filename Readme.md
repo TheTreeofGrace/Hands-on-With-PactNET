@@ -8,7 +8,7 @@ This playground uses the following technology so you will need to check they are
 - C# .NET 6 from SDK: https://docs.microsoft.com/en-us/dotnet/core/install/
 - Terminal (We use Bash)
 - Ruby: https://www.ruby-lang.org/en/documentation/installation/
-- Pact-Broker cli tool: `gem install --user-install pact_broker-client`
+- Pact-Broker cli tool: `gem install --user-install pact_broker-client` || `sudo gem install pact_broker-client`
 - git: to clone this repo!
 
 ***Network***
@@ -445,6 +445,10 @@ Now that we have our pact files published to the broker we will need to change o
 Open the Provider Tests file located at `Pact.Provider/Tests/ProviderApiTest`. Here we will need to update each test's pactVerifier code block with the following:
 
 ```
+// Arrange
+IPactVerifier pactVerifier = new PactVerifier(_config);
+
+// Act / Assert
 pactVerifier
     .ServiceProvider("SpiritAnimalProvider", new Uri(_providerUri))
     .WithPactBrokerSource(new Uri(_brokerUri),options =>
