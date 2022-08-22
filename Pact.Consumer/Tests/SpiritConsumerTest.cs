@@ -6,14 +6,14 @@ using Xunit.Abstractions;
 
 namespace Pact.Consumer.Tests;
 
-public class SpiritConsumer : MockProvider
+public class SpiritConsumerTest : MockProvider
 {
     private readonly Client _client;
-    private const int Port = 1234;
+    private const int Port = 3001;
     private readonly MinMaxTypeMatcher _spiritAnimals;
     private readonly object _spiritAnimal;
     
-    public SpiritConsumer(ITestOutputHelper output) : base(output)
+    public SpiritConsumerTest(ITestOutputHelper output) : base(output)
     {
         _spiritAnimal = new {
             Id = new TypeMatcher(10),
