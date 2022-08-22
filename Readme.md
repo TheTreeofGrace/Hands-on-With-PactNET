@@ -407,6 +407,13 @@ dotnet test
 # Pact Broker
 We have gone over running tests locally with the pact files and also breaking the contract. Next we can see how pact broker could be used for managing the pact files and verifications. 
 
+## Setup
+Before starting the Pact Broker we will need to make a small change to the `docker-compose.yml` file. In VS Code open the file and update the following:
+
+`PACT_BROKER_BASE_URL: 'https://localhost http://localhost http://localhost:9292 http://pact-broker:9292 http://<YOUR-PANDA>.devopsplayground.org http://<YOUR-PANDA>.devopsplayground.org:9292'`
+
+You will need to update `<YOUR-PANDA>` with the correct value for your instance. 
+
 ## Starting the Pact Broker in docker
 ```
 cd ..
@@ -416,7 +423,7 @@ docker-compose up -d
 
 Check the pact broker is running: http://<YOUR-PANDA>.devopsplayground.org you may notice that there is a default example pact file already there. Feel free to delete this pact file as we will not be using it.
 
-![](./Images/empty-pact-broker.png)
+![](./Images/pact-broker-fresh.png)
 
 ## Publishing the Pacts
 Now we have our pact broker up and running we will be able to publish the pact files created by the consumer tests. Run the following commands in your terminal:
