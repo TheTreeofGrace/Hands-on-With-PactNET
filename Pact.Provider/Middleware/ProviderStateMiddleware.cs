@@ -32,15 +32,12 @@ public class ProviderStateMiddleware
 
         private void SpiritAnimalsExists()
         {
-            CleanUp();
-            _repository.PostSpiritAnimal(SpiritAnimalsMock.Unicorn);
-            _repository.PostSpiritAnimal(SpiritAnimalsMock.Dog);
+            
         }
 
         private void SpiritAnimalExists()
         {
-            CleanUp();
-            _repository.PostSpiritAnimal(SpiritAnimalsMock.Panda);
+            
         }
 
         public async Task Invoke(HttpContext context)
