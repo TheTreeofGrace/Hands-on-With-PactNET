@@ -56,7 +56,22 @@ Pact provides a DSL(Domain Specific Lanugage) for consumers to define the reques
 Example diagram of the relationship architecture from docs.pact.io
 
 # Run the APIs
-To get started we will first run the provider API (SpiritAnimalBackend). Run the following commands to navigate into the correct directory from your teminal.
+To run the Backend API first we need to make a quick change to the file `SpiritAnimalBackend/Properties/launchSettings.json` in VS Code. Locate the following key to update in the "SpiritAnimalBackend" object:
+```
+"SpiritAnimalBackend": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "SpiritAnimal",
+      "applicationUrl": "http://<YOUR-PANDA>.devopsplayground.org:3000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+```
+You will need to update "applicationUrl" with your instance url.
+
+With this we will be able to run the provider API (SpiritAnimalBackend). Run the following commands to navigate into the correct directory from your teminal.
 
 ```
 cd SpiritAnimalBackend
