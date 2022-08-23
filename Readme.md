@@ -106,9 +106,10 @@ cd PlaygroundCLI
 dotnet run
 ```
 
-Read through the below output. We can see that the Spirit Animal you created earlier has been outputted into the console along with some other spirit animals being created and one being deleted!
+Read through the output into the console. We can see that the Spirit Animal you created earlier has been outputted into the console along with some other spirit animals being created and one being deleted!
 
-TODO: Fix CLI
+This is what it looks like if you stop and restart the backend api and run the frontend again.
+![](./Images/frontend-cli.png)
 
 # Pact Consumer Tests
 Now we have a bit of an idea about the APIs lets get started with writing some of the consumer tests.
