@@ -55,7 +55,7 @@ Pact provides a DSL(Domain Specific Lanugage) for consumers to define the reques
 ![](https://docs.pact.io/img/how-pact-works/summary.png)
 Example diagram of the relationship architecture from docs.pact.io
 
-# Run the APIs
+# 1. Run the APIs
 To run the Backend API first we need to make a quick change to the file `SpiritAnimalBackend/Properties/launchSettings.json` in VS Code. Locate the following key to update in the "SpiritAnimalBackend" object:
 ```
 "SpiritAnimalBackend": {
@@ -99,7 +99,7 @@ Further confirm your Spirit Animal has been created by running the `GET` request
 
 ![](./Images/get-try-it-out.png)
 
-Now lets run the frontend console application that contains the cunsumer side API. For this you will need to open a terminal in VS Code (located at the bottom of the IDE or on the top navigation menu).
+Now lets run the frontend console application that contains the cunsumer side API. For this you will need to open another wetty terminal (just copy and paste the url into a new tab).
 
 ```
 cd PlaygroundCLI
@@ -111,7 +111,7 @@ Read through the output into the console. We can see that the Spirit Animal you 
 This is what it looks like if you stop and restart the backend api and run the frontend again.
 ![](./Images/frontend-cli.png)
 
-# Pact Consumer Tests
+# 2. Pact Consumer Tests
 Now we have a bit of an idea about the APIs lets get started with writing some of the consumer tests.
 
 A quick overview of the folder structure:
@@ -126,9 +126,10 @@ A quick overview of the folder structure:
 │   └── XUnitOutput.cs
 ```
 
-## MockProvider
+## 2.1 MockProvider
 Lets take a quick look at the MockProvider file. We won't be editing this file during the playground but it is good to know what it does. 
 
+***File location -> `/Pact.Consumer/Utils/MockProvider.cs`***
 ```
 protected MockProvider(ITestOutputHelper output)
     {
@@ -155,8 +156,8 @@ A quick breakdown of some important lines:
 
 `MockProviderServer = PactNet.Pact.V3("SpiritAnimalConsumer", "SpiritAnimalProvider", config).UsingNativeBackend(MockServerPort);` -> Here we will be using pact specification version 3 for the pact file syntax. We then name the consumer and provider relations for the contract. Pass in the config and finally setup the port for where the mock server will run.
 
-## SpiritConsumerTest
-After looking at the mock provider now we can move to the test file. 
+## 2.2 SpiritConsumerTest
+After looking at the mock provider now we can move to the test file in `Pact.Consumer/Tests/SpiritConsumerTest.cs` 
 
 Lets go through some of the veriables:
 `private readonly Client _client;` -> this is the frontend client that we will be using to make API calls with for our tests
@@ -164,12 +165,13 @@ Lets go through some of the veriables:
 `private readonly MinMaxTypeMatcher _spiritAnimals;` -> Pact type matcher for lists
 `private readonly object _spiritAnimal;` -> the sprit animal object that contains further pact type matchers
 
-### GetAllSpiritAnimals test
+### 2.3 GetAllSpiritAnimals Test
 
 Now lets write tests for the GET methods. There are two tests declared in the file `GetAllSpiritAnimals` and `GetSpiritAnimal`.
 
 Fill in the following code for the `GetAllSpiritAnimals` test:
 
+***File location -> `Pact.Consumer/Tests/SpiritConsumerTest.cs`***
 ```
         // Arange
         MockProviderServer.UponReceiving("A request for all spirit animals")
@@ -207,10 +209,11 @@ As pact is consumer driven we do not need to make too many assertions. Just enou
 
 `Assert.Equal(HttpStatusCode.OK, response.StatusCode);` -> assert that the returned status code (`respoonse.StatusCode`) is 200.
 
-### GetSpiritAnimal test
+### 2.4 GetSpiritAnimal Test
 
 Copy the following code into the second test in the file `GetSpiritAnimal`.
 
+***File location -> `Pact.Consumer/Tests/SpiritConsumerTest.cs`***
 ```
         // Arange
         MockProviderServer.UponReceiving("A request for a spirit animals")
@@ -231,7 +234,7 @@ Copy the following code into the second test in the file `GetSpiritAnimal`.
 
 Compare this test to the one above that we just did. Can you spot the differences between the two?
 
-## Running the Consumer Tests
+## 3. Running the Consumer Tests
 Before running the consumer tests, make sure the the backend api is no longer running. Go to your terminal and if it is running do "ctrl+c" key command to end the running process. 
 
 Ensure you are in the `Pact.Consumer` diectory. To check run `pwd` and the nuse the `cd` navigation commands.
@@ -251,18 +254,20 @@ Now if you go to VS Code's explorer you should see a pact folder has been create
 
 We can see the json object has a couple keys and values included that were specified in the consumer test. Such as Consumer name, description, provider states, request and response. Pact has then generated the type matcher specification for us in the "MatchingRules". We can see that we just specified generic type matches on the values.
 
-# Pact Provider Tests
+# 4. Pact Provider Tests
 The pact provider tests themselves are quite small because of the amount of setup we did on the consumer side. We do not need to worry about assertions because this is what the pact file will take care of. 
 
 There is however, quite a bit of complex setup needed for the pact tests to be able to run. For the purpose of this Playground we will only focus on a few of the files. Find these files below in VS Code.
 
-- > `Tests/ProviderApiTest` This is the provider test file
-- > `Middleware/ProviderStateMiddleware`
+- > `Tests/ProviderApiTest`: This is the provider test file
+- > `Middleware/ProviderStateMiddleware`: This is where state setup is handled
 
-## Setting Provider States
+## 4.1 Setting Provider States
 For the consumer tests we specified some provider states. These need to be setup in the `ProviderStateMiddleware` file. These states will setup the Provider API with the required SpiritAnimals in order to be able to verify the contract between the two APIs. 
 
 Take a look at this code block in the `ProviderStateMiddleware` file.
+
+***File location -> `Pact.Provider/Middleware/ProviderStateMiddleware.cs`***
 ```
 _providerStates = new Dictionary<string, Action>
             {
@@ -280,6 +285,7 @@ There are some mock spirit animals already created for you that can be accessed 
 
 An example of what the finished functions could look like. Feel free to change the animals for `SpiritAnimalsExists()` but only a maxium of two is allowed based on the specification of the consumer tests.
 
+***File location -> `Pact.Provider/Middleware/ProviderStateMiddleware.cs`***
 ```
 private void SpiritAnimalsExists()
         {
@@ -295,11 +301,11 @@ private void SpiritAnimalsExists()
         }
 ```
 
-## Adding Provider Test
+## 4.2 Adding Provider Test
 With the provider states setup finished, it is time to move onto the `ProviderApiTest` file.
 
 In this file there is a bit of veriable setting and configuration for the following variables:
-
+***File location -> `Pact.Provider/Tests/ProviderApiTest.cs`***
 `_providerUri` ->
 `_brokerUri` -> will be used later
 `_pactPath` -> location of the pact file to run the provider against
@@ -308,6 +314,7 @@ In this file there is a bit of veriable setting and configuration for the follow
 
 As with the Consumer tests, past the following code into the provider test function.
 
+***File location -> `Pact.Provider/Tests/ProviderApiTest.cs`***
 ```
             // Arrange
             IPactVerifier pactVerifier = new PactVerifier(_config);
@@ -327,7 +334,9 @@ On the `pactVerifier` we call a couple of methods:
 `WithProviderStateUrl` -> is the url where the provider states will be accessiable to setup before making each call.
 `Verify` -> this will run the provider tests and use pact to verify if the contract is upheld.
 
-## Running Provider Tests
+## 5. Running Provider Tests
+*!IMPORTANT* Check both of your wetty terminals for if the `SpiritAnimalBackend` is running. If it is close it with the command `ctrl+c`.
+
 With everything setup and now saved, we can run the provider tests. The final half of our contract tests. 
 
 Run the following commands in your terminal:
@@ -342,7 +351,7 @@ The below output should be visible in the terminal. Notice how descriptive and e
 
 ![](./Images/pact-provider-tests-pass.png)
 
-# Breaking the Contracts
+# 6. Breaking the Contracts
 We have seen the tests run and pass. Now what happens if the contract is broken?
 
 As pact is a consumer driven testing tool. This means what the consumer specifies is treated as fact.
@@ -354,6 +363,7 @@ All spirit animals should have a size.
 
 With this we will need to edit the following object in the `SpiritConsumerTest` like so:
 
+***File location -> `Pact.Consumer/Tests/SpiritConsumerTest.cs`***
 ```
 _spiritAnimal = new {
             Id = new TypeMatcher(10),
@@ -364,14 +374,14 @@ _spiritAnimal = new {
 ```
 Now we are expecting to recieve a `Size` key on the response from the provider. 
 
-## Run the tests
+## 7. Run the tests
 As the requirements have changed, we now need to run the consumer tests again to update the pact file.
 ```
 cd ..
 cd Pact.Consumer
 dotnet test
 ```
-The tests should pass and if you check the `SpiritAnimalConsumer-SpiritAnimalProvider.json` file there should now be `size` added in the expected response body. 
+The tests should pass and if you check the `pact/pacts/SpiritAnimalConsumer-SpiritAnimalProvider.json` file there should now be `size` added in the expected response body. 
 
 Time to check if the contract is now broken! We will need to run the provider tests to see. Run the following commands:
 
@@ -386,9 +396,10 @@ This would have produced a lot of output but you should see the following block 
 ![](./Images/pact-provider-tests-failed.png)
 
 We can see that status code 200 was returned bu the body did not match. further down the reason why is mentioned with the error message: "Actual map is missing the following keys: size" which means that size was not returned in the response from the Provider.
-## Revert
+## 8. Revert
 Rever the changes to the consumer tests `_spiritAnimal` object by removeing the `Size` key that was added. It should look like the below:
 
+***File location -> `Pact.Consumer/Tests/SpiritConsumerTest.cs`***
 ```
 _spiritAnimal = new {
             Id = new TypeMatcher(10),
@@ -405,17 +416,18 @@ cd Pact.Consumer
 dotnet test
 ```
 
-# Pact Broker
+# 9. Pact Broker
 We have gone over running tests locally with the pact files and also breaking the contract. Next we can see how pact broker could be used for managing the pact files and verifications. 
 
-## Setup
-Before starting the Pact Broker we will need to make a small change to the `docker-compose.yml` file. In VS Code open the file and update the following:
+## 9.1 Setup
+Before starting the Pact Broker we will need to make a small change to the `PactBroker/docker-compose.yml` file. In VS Code open the file and update the following:
 
+***File location -> `PactBroker/docker-compose.yml`***
 `PACT_BROKER_BASE_URL: 'https://localhost http://localhost http://localhost:9292 http://pact-broker:9292 http://<YOUR-PANDA>.devopsplayground.org http://<YOUR-PANDA>.devopsplayground.org:9292'`
 
 You will need to update `<YOUR-PANDA>` with the correct value for your instance. 
 
-## Starting the Pact Broker in docker
+## 9.2 Starting the Pact Broker in docker
 ```
 cd ..
 cd PactBroker
@@ -426,7 +438,7 @@ Check the pact broker is running: http://<YOUR-PANDA>.devopsplayground.org you m
 
 ![](./Images/pact-broker-fresh.png)
 
-## Publishing the Pacts
+## 9.3 Publishing the Pacts
 Now we have our pact broker up and running we will be able to publish the pact files created by the consumer tests. Run the following commands in your terminal:
 ```
 cd ..
@@ -439,7 +451,7 @@ You should get something like the below output:
 
 Now if we go to the Pact Broker we can see it has our pact file.
 - > http://<YOUR-PANDA>.devopsplayground.org
-## Verifying Provider Tests
+## 9.4 Verifying Provider Tests
 
 Now that we have our pact files published to the broker we will need to change our Provider tests in order to use this. 
 
@@ -477,12 +489,14 @@ We can further check the verification by clicking through back to the pact file.
 
 ![](./Images/pact-verified-broker-badge.png)
 
-# Bonus
-## Breaking the Contracts
-Run the same changes we did earlier for breaking the contracts. Take a look at how the Pact Broker handles these test failures. 
+# 10. Bonus | Challenge
+## 10.1 Breaking the Contracts
+Run the `Pact.Consumer` tests with the same changes we did earlier for breaking the contracts in section `6. Breaking the Contracts`. Publish the pact file again and then run the `Pact.Provider` tests. 
 
-## Want to write more tests?
-So far we have only done two basic GET contract tests to the `SpiritAnimal` endpoint. Looking at the swagger document () we can see there are still `POST`, `PUT` and `DELETE` methods that could have tests written. 
+Take a look at how the Pact Broker handles these test failures. 
+
+## 10.2 Want to write more tests?
+So far we have only done two basic GET request contract tests to the `SpiritAnimal` endpoint. Looking at the swagger document, we can see there are still `POST`, `PUT` and `DELETE` request methods that could have tests written. 
 
 Using what you have learned from implementing the `GET` tests try to write tests for the other methods of the API that are permitted. 
 
