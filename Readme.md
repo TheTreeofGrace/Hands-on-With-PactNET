@@ -57,6 +57,7 @@ Example diagram of the relationship architecture from docs.pact.io
 
 # 1. Run the APIs
 To run the Backend API first we need to make a quick change to the file `SpiritAnimalBackend/Properties/launchSettings.json` in VS Code. Locate the following key to update in the "SpiritAnimalBackend" object:
+
 ```
 "SpiritAnimalBackend": {
       "commandName": "Project",
@@ -69,6 +70,7 @@ To run the Backend API first we need to make a quick change to the file `SpiritA
       }
     },
 ```
+
 You will need to update "applicationUrl" with your instance url.
 
 With this we will be able to run the provider API (SpiritAnimalBackend). Run the following commands to navigate into the correct directory from your teminal.
@@ -151,8 +153,8 @@ protected MockProvider(ITestOutputHelper output)
 ```
 
 A quick breakdown of some important lines:
-`PactConfig` -> setup of the basic config for the mock server such as pact directory, outputters and default json settings
-`PactDir` -> the directory location where we want to save the pact files to. In this case it will be the route of the repository. 
+- > `PactConfig`: setup of the basic config for the mock server such as pact directory, outputters and default json settings
+- > `PactDir`: the directory location where we want to save the pact files to. In this case it will be the route of the repository. 
 
 `MockProviderServer = PactNet.Pact.V3("SpiritAnimalConsumer", "SpiritAnimalProvider", config).UsingNativeBackend(MockServerPort);` -> Here we will be using pact specification version 3 for the pact file syntax. We then name the consumer and provider relations for the contract. Pass in the config and finally setup the port for where the mock server will run.
 
@@ -160,10 +162,10 @@ A quick breakdown of some important lines:
 After looking at the mock provider now we can move to the test file in `Pact.Consumer/Tests/SpiritConsumerTest.cs` 
 
 Lets go through some of the veriables:
-`private readonly Client _client;` -> this is the frontend client that we will be using to make API calls with for our tests
-`private const int Port = 3001;` -> the port where the mock server will be running
-`private readonly MinMaxTypeMatcher _spiritAnimals;` -> Pact type matcher for lists
-`private readonly object _spiritAnimal;` -> the sprit animal object that contains further pact type matchers
+- > `private readonly Client _client;`: this is the frontend client that we will be using to make API calls with for our tests
+- > `private const int Port = 3001;`: the port where the mock server will be running
+- > `private readonly MinMaxTypeMatcher _spiritAnimals;`: Pact type matcher for lists
+- > `private readonly object _spiritAnimal;`: the sprit animal object that contains further pact type matchers
 
 ### 2.3 GetAllSpiritAnimals Test
 
@@ -192,14 +194,14 @@ Fill in the following code for the `GetAllSpiritAnimals` test:
 
 There is a lot of code here so lets break down each method. For the "Arrange" code block the following methods are used:
 
-`UponReceiving` -> this is how we are able to distinush between tests. So here you would want to put the test title, i.e. what are you testing.
-`Given` -> the text entered here is important later for the provider when setting up states. It will allow the provider to know what it needs to run first before running the pact test.
-`WithRequest` -> the method and endpoint we are going to make a request for
-`WillRespond` -> now we are going to set up the expected response from the provider
-`WithStatus` -> the expected status code to be returned. e.g. 200, 201, 404, etc.
-`WithHeader` -> any headers that we expect to be included in the response
+- > `UponReceiving`: this is how we are able to distinush between tests. So here you would want to put the test title, i.e. what are you testing.
+- > `Given`: the text entered here is important later for the provider when setting up states. It will allow the provider to know what it needs to run first before running the pact test.
+- > `WithRequest`: the method and endpoint we are going to make a request for
+- > `WillRespond`: now we are going to set up the expected response from the provider
+- > `WithStatus`: the expected status code to be returned. e.g. 200, 201, 404, etc.
+- > `WithHeader`: any headers that we expect to be included in the response
 
-`WithJsonBody(_spiritAnimals)` -> this is the body or object we are expecting in the response. Notice that `_spirtAnimals` is being passed in here. Where we set the pact type mtchers against the object.
+- > `WithJsonBody(_spiritAnimals)`: this is the body or object we are expecting in the response. Notice that `_spirtAnimals` is being passed in here. Where we set the pact type mtchers against the object.
 
 For the "Act/Assert" code block here we will be making the call to the `MockProviderServer` that is running on port `3001`. 
 
@@ -306,11 +308,11 @@ With the provider states setup finished, it is time to move onto the `ProviderAp
 
 In this file there is a bit of veriable setting and configuration for the following variables:
 ***File location -> `Pact.Provider/Tests/ProviderApiTest.cs`***
-`_providerUri` ->
-`_brokerUri` -> will be used later
-`_pactPath` -> location of the pact file to run the provider against
-`_config` -> a PactVerifierConfig with outputters
-`_webHost` -> this will be the running provider with the pact states for the tests in the pact file to run against
+- > `_providerUri`: the url where the provider will run
+- > `_brokerUri`: will be used later
+- > `_pactPath`: location of the pact file to run the provider against
+- > `_config`: a PactVerifierConfig with outputters
+- > `_webHost`: this will be the running provider with the pact states for the tests in the pact file to run against
 
 As with the Consumer tests, past the following code into the provider test function.
 
@@ -329,10 +331,10 @@ As with the Consumer tests, past the following code into the provider test funct
 
 On the `pactVerifier` we call a couple of methods:
 
-`ServiceProvider` -> has the provider name we expect from the consumer side and the provider url that will be used
-`WithFileSource` -> is the location of the pact file
-`WithProviderStateUrl` -> is the url where the provider states will be accessiable to setup before making each call.
-`Verify` -> this will run the provider tests and use pact to verify if the contract is upheld.
+- > `ServiceProvider`: has the provider name we expect from the consumer side and the provider url that will be used
+- > `WithFileSource`: is the location of the pact file
+- > `WithProviderStateUrl`: is the url where the provider states will be accessiable to setup before making each call.
+- > `Verify`: this will run the provider tests and use pact to verify if the contract is upheld.
 
 ## 5. Running Provider Tests
 *!IMPORTANT* Check both of your wetty terminals for if the `SpiritAnimalBackend` is running. If it is close it with the command `ctrl+c`.
