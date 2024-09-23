@@ -15,7 +15,7 @@ public class MockProvider
     {
         var config = new PactConfig
         {
-            PactDir = Path.Join(@"../../../../", "pact/pacts"),
+            PactDir = $"{Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.Parent!.FullName}{Path.DirectorySeparatorChar}pact/pacts/",
             DefaultJsonSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
@@ -26,6 +26,6 @@ public class MockProvider
             },
         };
 
-        MockProviderServer = PactNet.Pact.V3("SpiritAnimalConsumer", "SpiritAnimalProvider", config).UsingNativeBackend(MockServerPort);
+        MockProviderServer = PactNet.Pact.V3("SpiritAnimalConsumer", "SpiritAnimalProvider", config).WithHttpInteractions(MockServerPort);
     }
 }

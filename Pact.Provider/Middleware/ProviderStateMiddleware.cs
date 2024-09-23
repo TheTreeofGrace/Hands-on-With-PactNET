@@ -1,9 +1,7 @@
 using System.Net;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Pact.Provider.Utils;
-using SpiritAnimalBackend.Models;
 using SpiritAnimalBackend.Repositories;
 
 namespace Pact.Provider.Middleware;
@@ -32,12 +30,15 @@ public class ProviderStateMiddleware
 
         private void SpiritAnimalsExists()
         {
-            
+            CleanUp();
+            _repository.PostSpiritAnimal(SpiritAnimalsMock.Unicorn);
+            _repository.PostSpiritAnimal(SpiritAnimalsMock.Dog);
         }
 
         private void SpiritAnimalExists()
         {
-            
+            CleanUp();
+            _repository.PostSpiritAnimal(SpiritAnimalsMock.Panda);
         }
 
         public async Task Invoke(HttpContext context)
@@ -60,7 +61,7 @@ public class ProviderStateMiddleware
             if (context.Request.Method.ToUpper() == HttpMethod.Post.ToString().ToUpper() &&
                 context.Request.Body != null)
             {
-                string jsonRequestBody = string.Empty;
+                string jsonRequestBody;
                 using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8))
                 {
                     jsonRequestBody = await reader.ReadToEndAsync();

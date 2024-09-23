@@ -15,7 +15,7 @@ This playground uses the following technology so you will need to check they are
 The following ports will be used for the application and testing:
 - 80 -> pack broker
 - 3000 -> backend api
-- 9292 -> postgress db for pact broker
+- 9292 -> postgres db for pact broker
 - 3001 -> frontend api
 - 443 -> some port listed in docker-compose file but we are not going to directly use this one
 
@@ -26,10 +26,10 @@ Backend API Swagger: http://localhost:3000/swagger
 Remember to change any urls to localhost if you are following on your own machine!
 
 # Getting Started
-The playground uses C# .NET 6 with version 4 of pact. Although no existing knowledge of C# .NET will be needed for this playground it could be benificial to have basic knowledge about some terms used for programming. Such as:
+The playground uses C# .NET 6 with version 4 of pact. Although no existing knowledge of C# .NET will be needed for this playground it could be beneficial to have basic knowledge about some terms used for programming. Such as:
 - Code block
 - Function/Method
-- Veriable
+- Variable
 - Class
 
 Before getting started, if using our infrastructure be sure to get your instance details and have the following urls open:
@@ -48,9 +48,9 @@ Before getting started, if using our infrastructure be sure to get your instance
 - `docker-compose down` to stop the containers
 
 # Introduction
-PactNet is a .NET implementation of Pact that allows you to define a pact between two ends of an API connection (or relationship). Pact refers to these as cunsumers and providers. The consumer is the consuming API, otherwise known as the "frontend" API. The provider is the provider of a service being consumer, otherwise known as the backend API.
+PactNet is a .NET implementation of Pact that allows you to define a pact between two ends of an API connection (or relationship). Pact refers to these as consumers and providers. The consumer is the consuming API, otherwise known as the "frontend" API. The provider is the provider of a service being consumer, otherwise known as the backend API.
 
-Pact provides a DSL(Domain Specific Lanugage) for consumers to define the request they will make to a provider along with the response they expect back. This expectation is used to create the mock provider that is then played back to the real provider with the pact file that is produced. 
+Pact provides a DSL(Domain Specific Language) for consumers to define the request they will make to a provider along with the response they expect back. This expectation is used to create the mock provider that is then played back to the real provider with the pact file that is produced. 
 
 ![](https://docs.pact.io/img/how-pact-works/summary.png)
 Example diagram of the relationship architecture from docs.pact.io
@@ -73,7 +73,7 @@ To run the Backend API first we need to make a quick change to the file `SpiritA
 
 You will need to update "applicationUrl" with your instance url.
 
-With this we will be able to run the provider API (SpiritAnimalBackend). Run the following commands to navigate into the correct directory from your teminal.
+With this we will be able to run the provider API (SpiritAnimalBackend). Run the following commands to navigate into the correct directory from your terminal.
 
 ```
 cd SpiritAnimalBackend
@@ -101,7 +101,7 @@ Further confirm your Spirit Animal has been created by running the `GET` request
 
 ![](./Images/get-try-it-out.png)
 
-Now lets run the frontend console application that contains the cunsumer side API. For this you will need to open another wetty terminal (just copy and paste the url into a new tab).
+Now lets run the frontend console application that contains the consumer side API. For this you will need to open another wetty terminal (just copy and paste the url into a new tab).
 
 ```
 cd PlaygroundCLI
@@ -161,11 +161,11 @@ A quick breakdown of some important lines:
 ## 2.2 SpiritConsumerTest
 After looking at the mock provider now we can move to the test file in `Pact.Consumer/Tests/SpiritConsumerTest.cs` 
 
-Lets go through some of the veriables:
+Lets go through some of the variables:
 - > `private readonly Client _client;`: this is the frontend client that we will be using to make API calls with for our tests
 - > `private const int Port = 3001;`: the port where the mock server will be running
 - > `private readonly MinMaxTypeMatcher _spiritAnimals;`: Pact type matcher for lists
-- > `private readonly object _spiritAnimal;`: the sprit animal object that contains further pact type matchers
+- > `private readonly object _spiritAnimal;`: the spirit animal object that contains further pact type matchers
 
 ### 2.3 GetAllSpiritAnimals Test
 
@@ -194,18 +194,18 @@ Fill in the following code for the `GetAllSpiritAnimals` test:
 
 There is a lot of code here so lets break down each method. For the "Arrange" code block the following methods are used:
 
-- > `UponReceiving`: this is how we are able to distinush between tests. So here you would want to put the test title, i.e. what are you testing.
+- > `UponReceiving`: this is how we are able to distinguish between tests. So here you would want to put the test title, i.e. what are you testing.
 - > `Given`: the text entered here is important later for the provider when setting up states. It will allow the provider to know what it needs to run first before running the pact test.
 - > `WithRequest`: the method and endpoint we are going to make a request for
 - > `WillRespond`: now we are going to set up the expected response from the provider
 - > `WithStatus`: the expected status code to be returned. e.g. 200, 201, 404, etc.
 - > `WithHeader`: any headers that we expect to be included in the response
 
-- > `WithJsonBody(_spiritAnimals)`: this is the body or object we are expecting in the response. Notice that `_spirtAnimals` is being passed in here. Where we set the pact type mtchers against the object.
+- > `WithJsonBody(_spiritAnimals)`: this is the body or object we are expecting in the response. Notice that `_spirtAnimals` is being passed in here. Where we set the pact type matchers against the object.
 
 For the "Act/Assert" code block here we will be making the call to the `MockProviderServer` that is running on port `3001`. 
 
-Only one method is call here; `VerifyAsync` which will start the process to be able to create pact files. Inside the inner code block of this method we will directly call the client's function for `GetSpiritAnimals()` and save the response to a veriable.
+Only one method is call here; `VerifyAsync` which will start the process to be able to create pact files. Inside the inner code block of this method we will directly call the client's function for `GetSpiritAnimals()` and save the response to a variable.
 
 As pact is consumer driven we do not need to make too many assertions. Just enough to catch any setup or configuration errors or any changes in the way the consumer makes the requests. 
 
@@ -239,7 +239,7 @@ Compare this test to the one above that we just did. Can you spot the difference
 ## 3. Running the Consumer Tests
 Before running the consumer tests, make sure the the backend api is no longer running. Go to your terminal and if it is running do "ctrl+c" key command to end the running process. 
 
-Ensure you are in the `Pact.Consumer` diectory. To check run `pwd` and the nuse the `cd` navigation commands.
+Ensure you are in the `Pact.Consumer` directory. To check run `pwd` and then use the `cd` navigation commands.
 
 Run the following command to run the tests:
 ```
@@ -277,15 +277,15 @@ _providerStates = new Dictionary<string, Action>
                 { "a spirit animal exists", SpiritAnimalExists }
             };
 ```
-Hopefuly this looks familiar. The strings should match the text used for the Consumer tests in the `Given()` method that we used. 
+Hopefully this looks familiar. The strings should match the text used for the Consumer tests in the `Given()` method that we used. 
 
 `SpiritAnimalsExists` and `SpiritAnimalExists` are both functions further down. We need to implement these functions with calling methods on the backendAPI that will add the given spirit animals into the API. 
 
-At the top of the file we delcare a veriable `_repository`. This gives us access to the SpiritAnimalBackend API functions. We can use the following function `_repository.PostSpiritAnimal();` to add SpiritAnimals to the provider API. 
+At the top of the file we declare a variable `_repository`. This gives us access to the SpiritAnimalBackend API functions. We can use the following function `_repository.PostSpiritAnimal();` to add SpiritAnimals to the provider API. 
 
 There are some mock spirit animals already created for you that can be accessed with `SpiritAnimalsMock`. 
 
-An example of what the finished functions could look like. Feel free to change the animals for `SpiritAnimalsExists()` but only a maxium of two is allowed based on the specification of the consumer tests.
+An example of what the finished functions could look like. Feel free to change the animals for `SpiritAnimalsExists()` but only a maximum of two is allowed based on the specification of the consumer tests.
 
 ***File location -> `Pact.Provider/Middleware/ProviderStateMiddleware.cs`***
 ```
@@ -306,7 +306,7 @@ private void SpiritAnimalsExists()
 ## 4.2 Adding Provider Test
 With the provider states setup finished, it is time to move onto the `ProviderApiTest` file.
 
-In this file there is a bit of veriable setting and configuration for the following variables:
+In this file there is a bit of variable setting and configuration for the following variables:
 ***File location -> `Pact.Provider/Tests/ProviderApiTest.cs`***
 - > `_providerUri`: the url where the provider will run
 - > `_brokerUri`: will be used later
@@ -333,7 +333,7 @@ On the `pactVerifier` we call a couple of methods:
 
 - > `ServiceProvider`: has the provider name we expect from the consumer side and the provider url that will be used
 - > `WithFileSource`: is the location of the pact file
-- > `WithProviderStateUrl`: is the url where the provider states will be accessiable to setup before making each call.
+- > `WithProviderStateUrl`: is the url where the provider states will be accessible to setup before making each call.
 - > `Verify`: this will run the provider tests and use pact to verify if the contract is upheld.
 
 ## 5. Running Provider Tests
@@ -374,7 +374,7 @@ _spiritAnimal = new {
             Size = new TypeMatcher("Large")
         };
 ```
-Now we are expecting to recieve a `Size` key on the response from the provider. 
+Now we are expecting to receive a `Size` key on the response from the provider. 
 
 ## 7. Run the tests
 As the requirements have changed, we now need to run the consumer tests again to update the pact file.
@@ -399,7 +399,7 @@ This would have produced a lot of output but you should see the following block 
 
 We can see that status code 200 was returned bu the body did not match. further down the reason why is mentioned with the error message: "Actual map is missing the following keys: size" which means that size was not returned in the response from the Provider.
 ## 8. Revert
-Rever the changes to the consumer tests `_spiritAnimal` object by removeing the `Size` key that was added. It should look like the below:
+Revert the changes to the consumer tests `_spiritAnimal` object by removing the `Size` key that was added. It should look like the below:
 
 ***File location -> `Pact.Consumer/Tests/SpiritConsumerTest.cs`***
 ```
